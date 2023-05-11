@@ -6,7 +6,9 @@ from hashlib import sha256
 client = MongoClient("mongodb://localhost:27017/", 
                     username='root',
                     password='root')
+# Create database named "appdb"
 db = client.appdb
+# Create a collection named "users"
 users_collection = db["users"]
 
 def hashing_attribute(attribute):

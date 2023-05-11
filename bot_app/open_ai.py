@@ -1,9 +1,14 @@
 import openai
 
+# This should be added to the database instead
 MESSAGES_LOG = []
 
 def openai_response(user_token, user_message, model):
-
+    """
+    Function sends a response from OpeanAI API based on attributes
+    like how the system should act, max number of tokens, temperature.
+    It could be increased and tweaked as desired.
+    """
     global MESSAGES_LOG
     personality = {
         'role': 'system', 
@@ -25,7 +30,6 @@ def openai_response(user_token, user_message, model):
     
     openai_response = response['choices'][0]['message']['content']
     messages_log.append({'role': 'assistant', 'content': openai_response})
-    # print(f'msg_log: {messages_log}')
     MESSAGES_LOG = messages_log
-    print(f'MSG_LOG: {MESSAGES_LOG}')
+    # print(f'MSG_LOG: {MESSAGES_LOG}')
     return openai_response

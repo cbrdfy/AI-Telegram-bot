@@ -22,14 +22,18 @@ logger.info(webhook_response.text)
 if webhook_response:
     @app.route('/', methods=['POST', 'GET'])
     def process():
+        """
+        Function that handles logic of the bot. 
+        Should be optimized later on.
+        """
         if request.method == 'POST':
-            # Wait for users response 
+            # Obtain main parameters to handle request from the user
             chat_id = request.json["message"]["chat"]["id"]
             username = request.json["message"]["chat"]["username"]
             user_message = request.json["message"]["text"].encode('utf-8').decode()
             # print(request.json)
             user_token = str()
-            # chat_id is a unique id for user's chat with chat bot
+            # chat_id is a unique id for user's chat with telegram bot
             existing_user = users_collection.find_one({"chat_id": chat_id })
             # regex to check basic token syntax
             open_ai_token_regex = r"^[a-z]{2}-[a-zA-Z0-9]{48}$"
@@ -53,7 +57,7 @@ if webhook_response:
                 # 
                 send_chat_action(chat_id=chat_id, action="typing")
                 send_message(chat_id=chat_id, 
-                            text="Commands available: \n /start \n /auth \n /delete \n /help")
+                            text="Commands available: \n /start \n /auth \n /delete \n /update_token \n /help")
             elif existing_user:
                 # if unique user exists
                 # obtain user's openai_token from mongodb
