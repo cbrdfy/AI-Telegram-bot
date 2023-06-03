@@ -1,5 +1,5 @@
 # Python cache files
-__pycache__/
+bot_app/__pycache__/
 *.pyc
 
 # Virtual environment
