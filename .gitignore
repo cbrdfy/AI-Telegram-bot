@@ -11,3 +11,6 @@ venv/
 
 # Compiled Python bytecode
 *.pyc
+
+# Environment-specific files
+.DS_Store
