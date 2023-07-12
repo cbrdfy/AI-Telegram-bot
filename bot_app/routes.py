@@ -36,14 +36,15 @@ def process():
         if user_message == "/help":
             handle_help_command(chat_id)
         elif existing_user:
-            if user_message == "/start":
-                handle_start_command(chat_id)
-            elif user_message == "/delete":
-                handle_delete_command(chat_id, existing_user)
-            elif user_message == "/update":
-                handle_update_command(chat_id, user_message, existing_user, open_ai_token_regex)
-            else:
-                handle_openai_response(user_message, chat_id, user_token)
+            match user_message:
+                case "/start":
+                    handle_start_command(chat_id)
+                case "/delete":
+                    handle_delete_command(chat_id, existing_user)
+                case "/update":
+                    handle_update_command(chat_id, user_message, existing_user, open_ai_token_regex)
+                case _:
+                    handle_openai_response(user_message, chat_id, user_token)
         else:
             if "/auth" not in user_message:
                 send_chat_action(chat_id=chat_id, action="typing")
