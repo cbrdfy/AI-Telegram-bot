@@ -24,9 +24,15 @@ def process():
     Function that processes POST requests. 
     """
     if request.method == 'POST':
-        chat_id = request.json["message"]["chat"]["id"]
-        username = request.json["message"]["chat"]["username"]
-        user_message = request.json["message"]["text"].encode('utf-8').decode()
+        try:
+            chat_info = request.json["message"]["chat"]
+            chat_id = chat_info["id"]
+            username = chat_info["username"]
+            user_message = request.json["message"]["text"].encode('utf-8').decode()
+        except KeyError as err:
+            logger.error(err)
+            raise
+
         user_token = str()
         # chat_id is a unique id for user's chat with bot
         existing_user = users_collection.find_one({"chat_id": chat_id })
