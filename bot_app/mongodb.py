@@ -19,7 +19,7 @@ def hashing_attribute(attribute):
     # Generate a random salt
     salt = urandom(16)
 
-    # Hash the token using SHA-256 algorithm and salt
+    # Hash an attribute using SHA-256 algorithm and salt
     hashed_attribute = sha256(salt + attribute.encode('utf-8')).hexdigest()
 
     return hashed_attribute
